@@ -1,5 +1,6 @@
 package com.example.api_taller_bicicleta.services;
 
+import com.example.api_taller_bicicleta.entity.Bicicleta;
 import com.example.api_taller_bicicleta.entity.Usuario;
 import com.example.api_taller_bicicleta.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class UsuarioService {
     public void eliminarUsuario(Long id){
         usuarioRepository.deleteById(id);
     }
+
+    //crear orden de trabajo
+
 
 
 }

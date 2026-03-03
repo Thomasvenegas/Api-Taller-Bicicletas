@@ -8,7 +8,4 @@ import java.util.List;
 
 @Repository
 public interface BicicletaRepository extends JpaRepository<Bicicleta, Long> {
-
-
-
 }

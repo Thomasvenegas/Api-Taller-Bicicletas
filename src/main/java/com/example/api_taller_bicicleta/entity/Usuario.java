@@ -1,5 +1,6 @@
 package com.example.api_taller_bicicleta.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Usuario {
     private String rol;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
     private List<Bicicleta> bicicletas;
 
     //es mecanico
@@ -30,5 +32,10 @@ public class Usuario {
     //es cliente
     public boolean esCliente(){
         return "Cliente".equalsIgnoreCase(this.rol);
+    }
+
+    //bicicletas
+    public List<Bicicleta> listaBicicletas(){
+        return this.bicicletas;
     }
 }
