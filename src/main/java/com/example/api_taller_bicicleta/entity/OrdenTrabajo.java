@@ -1,8 +1,10 @@
 package com.example.api_taller_bicicleta.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,15 +21,26 @@ public class OrdenTrabajo {
         private String observaciones;
 
 
-        //llave foranea Bicileta
+        //Fk Bicileta
         @ManyToOne
         @JoinColumn(name = "bicicleta_id", nullable = false)
         private Bicicleta bicicleta;
 
-        //llave foranea Usuario
+        //Fk Usuario
         @ManyToOne
         @JoinColumn(name = "usuario_id", nullable = false)
         private Usuario usuario;
+
+
+
+
+        @OneToMany(mappedBy = "ordenTrabajo")
+        @JsonManagedReference
+        private List<OrdenServicio> ordenServicios;
+
+
+
+
     }
 
 
