@@ -20,9 +20,14 @@ public class Usuario {
     private String password;
     private String rol;
 
+
     @OneToMany(mappedBy = "usuario")
     @JsonManagedReference
     private List<Bicicleta> bicicletas;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<OrdenTrabajo> ordenTrabajo;
+
 
     //es mecanico
     public boolean esMecanico(){

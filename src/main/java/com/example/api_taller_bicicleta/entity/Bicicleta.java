@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "Bicicleta")
+@Table(name = "bicicleta")
 public class Bicicleta {
 
     @Id
@@ -22,4 +24,8 @@ public class Bicicleta {
     @JoinColumn(name = "usuario_id", nullable = false)//usuario_id = foreign key
     @JsonBackReference
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "bicicleta")
+    private List<OrdenTrabajo> ordenTrabajo;
+
 }
