@@ -2,8 +2,8 @@ package com.example.api_taller_bicicleta.controllers;
 
 
 import com.example.api_taller_bicicleta.entity.Bicicleta;
-import com.example.api_taller_bicicleta.entity.Usuario;
 import com.example.api_taller_bicicleta.services.BicicletaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +13,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "/api/bicicleta")
 public class BicicletaController {
+    @Autowired
+    private  BicicletaService bicicletaService;
 
-    private final BicicletaService bicicletaService;
-
-    public BicicletaController(BicicletaService bicicletaService) {
-        this.bicicletaService = bicicletaService;
-    }
 
     //obtener bicicletas
     @GetMapping
@@ -34,7 +31,7 @@ public class BicicletaController {
 
     //registrar bicicleta
     @PostMapping
-    public Bicicleta registraBicicleta(@RequestBody Bicicleta bicicleta){
+    public ResponseEntity<Bicicleta> registraBicicleta(@RequestBody Bicicleta bicicleta){
         return bicicletaService.crearBicicleta(bicicleta);
     }
 
@@ -44,10 +41,10 @@ public class BicicletaController {
         bicicletaService.eliminarBicicleta(id);
     }
 
-    //obtener usuario de una bicicleta por id de bicicleta
-    @GetMapping("/{id}/usuario")
-    public Optional<Usuario> obtenerUsuarioDeBicicleta(@PathVariable Long id){
-        return bicicletaService.obtenerPropietario(id);
+    //asignar bicicleta
+    @PostMapping("asignarUsuario/{idBicicleta}/{idUsuario}")
+    public ResponseEntity<?> asignarBicicleta(@PathVariable Long idBicicleta, @PathVariable Long idUsuario){
+        return bicicletaService.asignarBicicleta(idBicicleta, idUsuario);
     }
 
 }

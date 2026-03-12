@@ -2,11 +2,12 @@ package com.example.api_taller_bicicleta.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -15,32 +16,63 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
+
+    @Email
     private String email;
     private String telefono;
     private String password;
     private String rol;
 
 
-    @OneToMany(mappedBy = "usuario")
-    @JsonManagedReference
-    private List<Bicicleta> bicicletas;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<OrdenTrabajo> ordenTrabajo;
-
-
-    //es mecanico
-    public boolean esMecanico(){
-        return "Mecanico".equalsIgnoreCase(this.rol);
+    public boolean esMecanico() {
+        return "Mecanico".equals(this.rol);
     }
 
-    //es cliente
-    public boolean esCliente(){
-        return "Cliente".equalsIgnoreCase(this.rol);
+    public Long getId() {
+        return id;
     }
 
-    //bicicletas
-    public List<Bicicleta> listaBicicletas(){
-        return this.bicicletas;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

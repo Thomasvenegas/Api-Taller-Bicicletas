@@ -7,7 +7,7 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name = "bicicleta")
 public class Bicicleta {
@@ -21,11 +21,55 @@ public class Bicicleta {
     private Long numeroSerie;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)//usuario_id = foreign key
-    @JsonBackReference
+    @JoinColumn(name = "usuario_id", nullable = true)//usuario_id = foreign key
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "bicicleta")
-    private List<OrdenTrabajo> ordenTrabajo;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Long getNumeroSerie() {
+        return numeroSerie;
+    }
+
+    public void setNumeroSerie(Long numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

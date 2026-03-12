@@ -20,7 +20,7 @@ public class UsuarioService {
 
     //listar usuarios
     public List<Usuario> listarUsuarios(){
-        return usuarioRepository.findAll();
+        return (List<Usuario>) usuarioRepository.findAll();
     }
 
     //buscar por id
