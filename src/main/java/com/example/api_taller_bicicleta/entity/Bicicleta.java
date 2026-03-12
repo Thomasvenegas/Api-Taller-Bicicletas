@@ -72,4 +72,8 @@ public class Bicicleta {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public void desvincularUsuario(){
+        this.usuario = null;
+    }
 }

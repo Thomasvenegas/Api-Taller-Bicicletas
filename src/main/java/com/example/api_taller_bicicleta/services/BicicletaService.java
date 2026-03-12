@@ -62,6 +62,27 @@ public class BicicletaService {
 
     //Desasignar Bicicleta
 
+    public ResponseEntity<?> desvincularUsuario(Long idBicicleta, Long idUsuario){
+
+        Optional<Usuario> o = usuarioRepository.findById(idUsuario);
+        Optional<Bicicleta> b = bicicletaRepository.findById(idBicicleta);
+
+        if (o.isPresent() && b.isPresent()){
+
+
+            Bicicleta bicicleta = b.get();
+
+            bicicleta.desvincularUsuario();
+            bicicletaRepository.save(bicicleta);
+
+            return ResponseEntity.ok(bicicleta);
+
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
 
 
     //eliminar Bicicleta
