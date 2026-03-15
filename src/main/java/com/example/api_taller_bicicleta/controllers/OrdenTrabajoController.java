@@ -39,7 +39,7 @@ public class OrdenTrabajoController {
         return ordenTrabajoService.crearOrden(ordenTrabajo, idMecanico, idBicicleta);
     }
 
-    //eliminar ordenDeTrabajo
+    //eliminar ordenDeTrabajoo
     @DeleteMapping("{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
 
