@@ -1,5 +1,6 @@
 package com.example.api_taller_bicicleta.entity;
 
+import com.example.api_taller_bicicleta.enums.Rol;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -18,14 +19,17 @@ public class Usuario {
     private String nombre;
 
     @Email
+    @Column(unique = true, nullable = false)
     private String email;
     private String telefono;
     private String password;
-    private String rol;
+
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
 
 
     public boolean esMecanico() {
-        return "Mecanico".equals(this.rol);
+        return Rol.MECANICO == this.rol;
     }
 
     public Long getId() {
@@ -68,11 +72,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getRol() {
+
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 }

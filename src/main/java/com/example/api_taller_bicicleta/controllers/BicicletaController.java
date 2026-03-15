@@ -46,8 +46,7 @@ public class BicicletaController {
     public ResponseEntity<?> asignarBicicleta(@PathVariable Long idBicicleta, @PathVariable Long idUsuario){
         return bicicletaService.asignarBicicleta(idBicicleta, idUsuario);
     }
-
-
+    
     //desvincular usuario
     @PostMapping("desvincular-usuario/{idBicicleta}/{idUsuario}")
     public ResponseEntity<?> desvincularUsuario(@PathVariable Long idBicicleta, @PathVariable Long idUsuario){

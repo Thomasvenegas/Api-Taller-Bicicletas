@@ -18,7 +18,10 @@ public class Bicicleta {
     private String marca;
     private String modelo;
     private String tipo;
-    private Long numeroSerie;
+
+
+    @Column(unique = true)
+    private Long numeroSerie;//Revisar que exista de forma unica
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = true)//usuario_id = foreign key

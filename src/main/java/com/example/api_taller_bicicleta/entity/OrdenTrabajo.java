@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name = "orden_trabajo")
 
@@ -38,13 +38,70 @@ public class OrdenTrabajo {
         @JoinColumn(name = "mecanico_id", nullable = false)
         private Usuario mecanico;
 
-        @OneToMany(mappedBy = "ordenTrabajo")
-        @JsonManagedReference
-        private List<OrdenServicio> ordenServicios;
 
+        public Long getId() {
+                return id;
+        }
 
+        public void setId(Long id) {
+                this.id = id;
+        }
 
+        public Date getFechaIngreso() {
+                return fechaIngreso;
+        }
 
-    }
+        public void setFechaIngreso(Date fechaIngreso) {
+                this.fechaIngreso = fechaIngreso;
+        }
+
+        public Date getFechaEstimada() {
+                return fechaEstimada;
+        }
+
+        public void setFechaEstimada(Date fechaEstimada) {
+                this.fechaEstimada = fechaEstimada;
+        }
+
+        public EstadoOrden getEstado() {
+                return estado;
+        }
+
+        public void setEstado(EstadoOrden estado) {
+                this.estado = estado;
+        }
+
+        public String getObservaciones() {
+                return observaciones;
+        }
+
+        public void setObservaciones(String observaciones) {
+                this.observaciones = observaciones;
+        }
+
+        public Bicicleta getBicicleta() {
+                return bicicleta;
+        }
+
+        public void setBicicleta(Bicicleta bicicleta) {
+                this.bicicleta = bicicleta;
+        }
+
+        public Usuario getCliente() {
+                return cliente;
+        }
+
+        public void setCliente(Usuario cliente) {
+                this.cliente = cliente;
+        }
+
+        public Usuario getMecanico() {
+                return mecanico;
+        }
+
+        public void setMecanico(Usuario mecanico) {
+                this.mecanico = mecanico;
+        }
+}
 
 
