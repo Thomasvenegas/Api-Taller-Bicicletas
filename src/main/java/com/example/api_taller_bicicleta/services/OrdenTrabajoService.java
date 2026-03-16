@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -28,13 +29,16 @@ public class OrdenTrabajoService {
 
 
     //listar ordenes de trabajo
+    @Transactional(readOnly = true)
     public List<OrdenTrabajo> listarOrdenesTrabajo(){
         return ordenTrabajoRepository.findAll();
     }
 
     //ordenTrabajo por Id
+    @Transactional(readOnly = true)
     public Optional<OrdenTrabajo> buscarPorId(Long id) {return ordenTrabajoRepository.findById(id);}
     //crearOrden
+    @Transactional
     public ResponseEntity<?> crearOrden(OrdenTrabajo ordenTrabajo, Long idMecanico, Long idBicicleta){
 
         Optional<Usuario> m = usuarioRepository.findById(idMecanico);
@@ -72,6 +76,7 @@ public class OrdenTrabajoService {
     }
 
     // marcar como entregado
+    @Transactional
     public void marcarComoEntregado(Long id) {
 
         OrdenTrabajo orden = ordenTrabajoRepository.findById(id)
@@ -83,7 +88,7 @@ public class OrdenTrabajoService {
     }
 
     //marcar como EN_PROCESO
-
+    @Transactional
     public void marcarEnProceso(Long id) {
 
         OrdenTrabajo orden = ordenTrabajoRepository.findById(id)
@@ -94,6 +99,7 @@ public class OrdenTrabajoService {
     }
 
     //Elimianr OrdenDeTrabajo
+    @Transactional
     public ResponseEntity<?> eliminarOrdenDeTrabajo(Long id){
 
         Optional<OrdenTrabajo> o = ordenTrabajoRepository.findById(id);

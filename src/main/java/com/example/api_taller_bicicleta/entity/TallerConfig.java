@@ -9,8 +9,33 @@ import lombok.Data;
 @Data
 public class TallerConfig {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     private Long capacidadMaxima;
+    private Long bicicletasIngresadas;
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getCapacidadMaxima() {
+        return capacidadMaxima;
+    }
+
+    public void setCapacidadMaxima(Long capacidadMaxima) {
+        this.capacidadMaxima = capacidadMaxima;
+    }
+
+    public Long getBicicletasIngresadas() {
+        return bicicletasIngresadas;
+    }
+
+    public void setBicicletasIngresadas(Long bicicletasIngresadas) {
+        this.bicicletasIngresadas = bicicletasIngresadas;
+    }
 }
+
