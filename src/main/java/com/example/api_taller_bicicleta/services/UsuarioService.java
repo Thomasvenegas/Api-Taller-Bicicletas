@@ -12,11 +12,10 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepository;
+    @Autowired
+    private  UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-    }
+
 
     //listar usuarios
     public List<Usuario> listarUsuarios(){
@@ -30,6 +29,7 @@ public class UsuarioService {
 
     //crear usuario
     public Usuario guardarUsuario(Usuario usuario){
+
         return usuarioRepository.save(usuario);
     }
 
@@ -38,7 +38,7 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    //crear orden de trabajo
+
 
 
 

@@ -4,6 +4,7 @@ package com.example.api_taller_bicicleta.controllers;
 import com.example.api_taller_bicicleta.entity.OrdenTrabajo;
 import com.example.api_taller_bicicleta.services.OrdenTrabajoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,15 +36,30 @@ public class OrdenTrabajoController {
             @RequestParam Long idMecanico,
             @RequestParam Long idBicicleta) {
 
+        Optional<OrdenTrabajo> orden = ordenTrabajoService.crearOrden(ordenTrabajo, idMecanico, idBicicleta);
 
-        return ordenTrabajoService.crearOrden(ordenTrabajo, idMecanico, idBicicleta);
+        if (orden.isPresent()){
+            return ResponseEntity.status(HttpStatus.CREATED).body(orden.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     //eliminar ordenDeTrabajoo
     @DeleteMapping("{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id){
 
-        return ordenTrabajoService.eliminarOrdenDeTrabajo(id);
+        Optional<OrdenTrabajo> o = ordenTrabajoService.buscarPorId(id);
+
+        if(o.isPresent()){
+
+            ordenTrabajoService.eliminarOrdenDeTrabajo(id);
+
+            return ResponseEntity.noContent().build();
+
+        }
+
+        return ResponseEntity.notFound().build();
 
     }
 

@@ -39,40 +39,30 @@ public class OrdenTrabajoService {
     public Optional<OrdenTrabajo> buscarPorId(Long id) {return ordenTrabajoRepository.findById(id);}
     //crearOrden
     @Transactional
-    public ResponseEntity<?> crearOrden(OrdenTrabajo ordenTrabajo, Long idMecanico, Long idBicicleta){
+    public Optional<OrdenTrabajo> crearOrden(OrdenTrabajo ordenTrabajo,
+                                             Long idMecanico,
+                                             Long idBicicleta){
 
         Optional<Usuario> m = usuarioRepository.findById(idMecanico);
         Optional<Bicicleta> b = bicicletaRepository.findById(idBicicleta);
 
-
-        if(m.isPresent() && b.isPresent()){
+        if (m.isPresent() && b.isPresent()){
 
             Usuario mecanico = m.get();
             Bicicleta bicicleta = b.get();
             Usuario cliente = bicicleta.getUsuario();
 
-            if(mecanico.esMecanico()){
+            if (mecanico.esMecanico()){
 
                 ordenTrabajo.setMecanico(mecanico);
                 ordenTrabajo.setBicicleta(bicicleta);
                 ordenTrabajo.setCliente(cliente);
 
-                ordenTrabajoRepository.save(ordenTrabajo);
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(ordenTrabajo);
-
-            } else {
-                return ResponseEntity
-                        .status(HttpStatus.FORBIDDEN)
-                        .body(Map.of(
-                                "error", "Acceso Denegado",
-                                "mensaje", "El usuario con ID " + idMecanico + " no tiene permisos de mecánico."
-                        ));
+                return Optional.of(ordenTrabajoRepository.save(ordenTrabajo));
             }
-
         }
 
-        return ResponseEntity.notFound().build();
+        return Optional.empty();
     }
 
     // marcar como entregado
@@ -100,19 +90,11 @@ public class OrdenTrabajoService {
 
     //Elimianr OrdenDeTrabajo
     @Transactional
-    public ResponseEntity<?> eliminarOrdenDeTrabajo(Long id){
+    public void eliminarOrdenDeTrabajo(Long id){
 
-        Optional<OrdenTrabajo> o = ordenTrabajoRepository.findById(id);
-
-        if(o.isPresent()){
 
             ordenTrabajoRepository.deleteById(id);
 
-            return ResponseEntity.noContent().build();
-
-        }
-
-        return ResponseEntity.notFound().build();
 
     }
 

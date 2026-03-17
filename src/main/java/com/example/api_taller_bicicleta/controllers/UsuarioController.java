@@ -3,6 +3,9 @@ package com.example.api_taller_bicicleta.controllers;
 
 import com.example.api_taller_bicicleta.entity.Usuario;
 import com.example.api_taller_bicicleta.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,11 +15,9 @@ import java.util.Optional;
 @RequestMapping(path = "api/usuario")
 public class UsuarioController {
 
-    private final UsuarioService usuarioService;
+    @Autowired
+    private  UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
     //listar usuarios
     @GetMapping
     public List<Usuario> usuarios(){
@@ -24,19 +25,30 @@ public class UsuarioController {
     }
     //buscar usuario por id
     @GetMapping("/{id}")
-    public Optional<Usuario> buscarPorId(@PathVariable Long id){
-        return usuarioService.buscarUsuarioId(id);
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id){
+
+        Optional<Usuario> usuario = usuarioService.buscarUsuarioId(id);
+
+        if(usuario.isPresent()){
+            ResponseEntity.ok(usuario);
+        }
+
+        return ResponseEntity.notFound().build();
+
+
     }
 
     //crear usuario
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario){
-        return usuarioService.guardarUsuario(usuario);
+    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario){
+        usuarioService.guardarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
     // Eliminar usuario
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
         usuarioService.eliminarUsuario(id);
+        return ResponseEntity.noContent().build();
     }
 }

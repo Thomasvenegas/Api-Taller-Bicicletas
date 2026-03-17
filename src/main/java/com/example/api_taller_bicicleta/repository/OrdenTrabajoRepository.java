@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrdenTrabajoRepository extends JpaRepository<OrdenTrabajo, Long> {
-    OrdenTrabajo estado(String estado);
+
 }

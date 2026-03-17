@@ -5,9 +5,8 @@ import com.example.api_taller_bicicleta.entity.Usuario;
 import com.example.api_taller_bicicleta.repository.BicicletaRepository;
 import com.example.api_taller_bicicleta.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,72 +21,64 @@ public class BicicletaService {
     private UsuarioRepository usuarioRepository;
 
     //buscar bicicletas
+    @Transactional(readOnly = true)
     public List<Bicicleta> listaBicicletas(){
         return bicicletaRepository.findAll();
     }
 
     //buscar bicicletas por id
+    @Transactional(readOnly = true)
     public Optional<Bicicleta> bicicletaId(Long Id){
         return bicicletaRepository.findById(Id);
     }
 
     //crear bicicleta
-    public ResponseEntity<Bicicleta> crearBicicleta(Bicicleta bicicleta){
+    public Bicicleta crearBicicleta(Bicicleta bicicleta){
+        return bicicletaRepository.save(bicicleta);
 
-        bicicletaRepository.save(bicicleta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(bicicleta);
+    }
+
+    //eliminar Bicicleta
+    @Transactional
+    public void eliminarBicicleta(Long id){
+        bicicletaRepository.deleteById(id);
     }
 
     //Asignar un usuario a una bicicleta
-    public ResponseEntity<?> asignarBicicleta(Long idBicicleta, Long idUsuario){
+    @Transactional
+    public Optional<Bicicleta> asignarBicicleta(Long idBicicleta, Long idUsuario){
 
         Optional<Usuario> o = usuarioRepository.findById(idUsuario);
         Optional<Bicicleta> b = bicicletaRepository.findById(idBicicleta);
 
         if (o.isPresent() && b.isPresent()){
 
-            Usuario usuario = o.get();
             Bicicleta bicicleta = b.get();
+            bicicleta.setUsuario(o.get());
 
-            bicicleta.setUsuario(usuario);
-            bicicletaRepository.save(bicicleta);
-
-            return ResponseEntity.ok(bicicleta);
-
+            return Optional.of(bicicletaRepository.save(bicicleta));
         }
 
-        return ResponseEntity.notFound().build();
-
+        return Optional.empty();
     }
 
-    //Desasignar Bicicleta
 
-    public ResponseEntity<?> desvincularUsuario(Long idBicicleta, Long idUsuario){
+    //Desvincular usuario de bicicleta
+    @Transactional
+    public Optional<Bicicleta> desvincularUsuario(Long idBicicleta, Long idUsuario){
 
         Optional<Usuario> o = usuarioRepository.findById(idUsuario);
         Optional<Bicicleta> b = bicicletaRepository.findById(idBicicleta);
 
         if (o.isPresent() && b.isPresent()){
-
 
             Bicicleta bicicleta = b.get();
 
             bicicleta.desvincularUsuario();
-            bicicletaRepository.save(bicicleta);
-
-            return ResponseEntity.ok(bicicleta);
-
+            return Optional.of(bicicletaRepository.save(bicicleta));
         }
 
-        return ResponseEntity.notFound().build();
-
-    }
-
-
-
-    //eliminar Bicicleta
-    public void eliminarBicicleta(Long id){
-         bicicletaRepository.deleteById(id);
+        return Optional.empty();
     }
 
 

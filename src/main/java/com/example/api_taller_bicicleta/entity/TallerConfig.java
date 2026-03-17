@@ -12,10 +12,19 @@ public class TallerConfig {
     private Long id;
     private Long capacidadMaxima;
     private Long bicicletasIngresadas;
+    private Boolean tallerLleno;
 
 
     public Long getId() {
         return id;
+    }
+
+    public Boolean getTallerLleno() {
+        return tallerLleno;
+    }
+
+    public void setTallerLleno(Boolean tallerLleno) {
+        this.tallerLleno = tallerLleno;
     }
 
     public void setId(Long id) {
