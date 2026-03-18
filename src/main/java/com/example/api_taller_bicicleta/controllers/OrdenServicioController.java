@@ -19,9 +19,9 @@ public class OrdenServicioController {
 
     //crear
     @PostMapping
-    public ResponseEntity<?> crear(@RequestBody OrdenServicio ordenServicio){
+    public ResponseEntity<?> crear(@RequestBody OrdenServicio ordenServicio, @RequestParam Long idOrdenTrabajo,@RequestParam Long idServicio ){
 
-        ordenServicioService.crear(ordenServicio);
+        ordenServicioService.crear(ordenServicio,idOrdenTrabajo,idServicio);
         return ResponseEntity.status(HttpStatus.CREATED).body(ordenServicio);
     }
 

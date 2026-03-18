@@ -22,7 +22,6 @@ public class OrdenServicio {
     //fk
     @ManyToOne
     @JoinColumn(name = "orden_trabajo_id", nullable = false)
-    @JsonBackReference
     private OrdenTrabajo ordenTrabajo;
 
     //fk
@@ -61,5 +60,9 @@ public class OrdenServicio {
 
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
+    }
+
+    public void desvincularServicio(Servicio s){
+        s = null;
     }
 }

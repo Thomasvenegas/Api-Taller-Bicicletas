@@ -78,5 +78,5 @@ public class Bicicleta {
 
     public void desvincularUsuario(){
         this.usuario = null;
-    }
+    } //revisar la desvinculacion
 }
