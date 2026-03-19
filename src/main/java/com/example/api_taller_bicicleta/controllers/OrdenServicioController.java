@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,12 +18,30 @@ public class OrdenServicioController {
     @Autowired
     public OrdenServicioService ordenServicioService;
 
+
+    //listar
+    @GetMapping
+    public List<OrdenServicio> listar(){
+        return ordenServicioService.listar();
+    }
+
+
     //crear
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody OrdenServicio ordenServicio, @RequestParam Long idOrdenTrabajo,@RequestParam Long idServicio ){
 
         ordenServicioService.crear(ordenServicio,idOrdenTrabajo,idServicio);
         return ResponseEntity.status(HttpStatus.CREATED).body(ordenServicio);
+    }
+
+    //asignar Servicio
+    @PostMapping("/asignar-servicio")
+    public ResponseEntity<?> asignarServicio(@RequestParam Long idOrdenServicio, @RequestParam Long idServicio){
+
+        ordenServicioService.asignarServicio(idOrdenServicio, idServicio);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+
     }
 
 

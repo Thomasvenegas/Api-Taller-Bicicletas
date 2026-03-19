@@ -3,6 +3,7 @@ package com.example.api_taller_bicicleta.controllers;
 
 import com.example.api_taller_bicicleta.entity.Usuario;
 import com.example.api_taller_bicicleta.services.UsuarioService;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +30,11 @@ public class UsuarioController {
 
         Optional<Usuario> usuario = usuarioService.buscarUsuarioId(id);
 
-        if(usuario.isPresent()){
-            ResponseEntity.ok(usuario);
-        }
+        if(usuario.isEmpty()){
 
-        return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();        }
+
+        return ResponseEntity.ok(usuario.get());
 
 
     }

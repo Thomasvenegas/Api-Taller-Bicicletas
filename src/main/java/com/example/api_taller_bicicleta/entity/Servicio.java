@@ -1,8 +1,11 @@
 package com.example.api_taller_bicicleta.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.http.ResponseEntity;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "servicio")
@@ -14,6 +17,10 @@ public class Servicio
     private String nombre;
     private String descripcion;
     private Long precio;
+
+    @ManyToMany(mappedBy = "servicios")
+    @JsonBackReference
+    private Set<OrdenServicio> ordenServicios;
 
 
     public Long getId() {
@@ -47,5 +54,13 @@ public class Servicio
     public Long setPrecio(Long precio) {
         this.precio = precio;
         return precio;
+    }
+
+    public Set<OrdenServicio> getOrdenServicios() {
+        return ordenServicios;
+    }
+
+    public void setOrdenServicios(Set<OrdenServicio> ordenServicios) {
+        this.ordenServicios = ordenServicios;
     }
 }

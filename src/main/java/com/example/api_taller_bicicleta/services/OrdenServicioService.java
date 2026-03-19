@@ -48,8 +48,7 @@ public class OrdenServicioService {
         OrdenTrabajo ordenTrabajo = ordenTrabajoRepository.findById(idOrdenTrabajo)
                 .orElseThrow(() -> new RuntimeException("Orden de trabajo no encontrada"));
 
-        ordenServicio.setServicio(servicio);
-        ordenServicio.setOrdenTrabajo(ordenTrabajo);
+        ordenServicio.getServicios().add(servicio);
 
         return ordenServicioRepository.save(ordenServicio);
     }
@@ -66,10 +65,8 @@ public class OrdenServicioService {
             Servicio servicio = s.get();
             OrdenServicio ordenServicio = o.get();
 
-            //asignamos el servicio
-            ordenServicio.setServicio(servicio);
-
-
+            //agregamos el servicio
+            ordenServicio.getServicios().add(servicio);
 
 
             return Optional.of(ordenServicioRepository.save(ordenServicio));
@@ -91,8 +88,7 @@ public class OrdenServicioService {
             Servicio servicio = s.get();
             OrdenServicio ordenServicio = o.get();
 
-            //asignamos el servicio
-            ordenServicio.desvincularServicio(servicio);
+            ordenServicio.getServicios().remove(servicio);
 
 
             return Optional.of(ordenServicioRepository.save(ordenServicio));

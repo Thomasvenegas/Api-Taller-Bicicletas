@@ -2,6 +2,7 @@ package com.example.api_taller_bicicleta.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,7 +25,9 @@ public class Bicicleta {
     private Long numeroSerie;//Revisar que exista de forma unica
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = true)//usuario_id = foreign key
+    @JoinColumn(name = "usuario_id", nullable = true)
+    @JsonBackReference
+//usuario_id = foreign key
     private Usuario usuario;
 
 

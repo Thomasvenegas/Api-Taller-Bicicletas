@@ -3,8 +3,12 @@ package com.example.api_taller_bicicleta.entity;
 
 import com.example.api_taller_bicicleta.enums.EstadoServicio;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -24,10 +28,14 @@ public class OrdenServicio {
     @JoinColumn(name = "orden_trabajo_id", nullable = false)
     private OrdenTrabajo ordenTrabajo;
 
-    //fk
-    @ManyToOne
-    @JoinColumn(name = "servicio_id", nullable = true)
-    private Servicio servicio;
+    //relacion muchos a muchos
+    @ManyToMany
+    @JoinTable(name = "detalle_servicio", joinColumns = @JoinColumn(name = "orden_servicio_id"),
+    inverseJoinColumns = @JoinColumn(name = "servicio_id"))
+    @JsonManagedReference
+    private Set<Servicio> servicios;
+
+
 
 
     public Long getId() {
@@ -54,15 +62,11 @@ public class OrdenServicio {
         this.ordenTrabajo = ordenTrabajo;
     }
 
-    public Servicio getServicio() {
-        return servicio;
+    public Set<Servicio> getServicios() {
+        return servicios;
     }
 
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
-    }
-
-    public void desvincularServicio(Servicio s){
-        s = null;
+    public void setServicios(Set<Servicio> servicios) {
+        this.servicios = servicios;
     }
 }

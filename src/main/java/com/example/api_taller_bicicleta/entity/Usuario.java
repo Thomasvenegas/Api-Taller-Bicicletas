@@ -1,6 +1,7 @@
 package com.example.api_taller_bicicleta.entity;
 
 import com.example.api_taller_bicicleta.enums.Rol;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -26,6 +27,10 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bicicleta> bicicletas;
 
 
     public boolean esMecanico() {
@@ -79,5 +84,13 @@ public class Usuario {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public List<Bicicleta> getBicicletas() {
+        return bicicletas;
+    }
+
+    public void setBicicletas(List<Bicicleta> bicicletas) {
+        this.bicicletas = bicicletas;
     }
 }
