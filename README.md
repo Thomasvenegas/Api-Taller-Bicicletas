@@ -1,5 +1,6 @@
 # ⚙️ Api-Taller-Bicicletas
 Sistema de gestión para taller de bicicletas desarrollado en Java con Spring Boot, bajo una arquitectura monolítica. La aplicación permite registrar bicicletas, generar órdenes de trabajo, asignar servicios, gestionar estados de reparación y controlar la capacidad operativa del taller. Implementa una arquitectura en capas (Controller, Service y Repository) y utiliza MySQL como sistema de gestión de base de datos.
+Este proyecto busca la organizacion del taller de una tienda de bicicletas para un mejor servicio.
 
 ## 🛠 Tecnologías
 
